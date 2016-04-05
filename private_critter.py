@@ -11,3 +11,5 @@ class Critter(object):
     def talk(self):
         print("\nI'm", self.name)
         print("Right now I feel", self.__mood, "\n")
+
+# some comment
