@@ -20,7 +20,7 @@ class Critter(object):
             print("Name change successful.")
 
     def talk(self):
-        print("\nHi, I'm, self.name")
+        print("\nHi, I'm", self.name)
 
 # main
 crit = Critter("Poochie")
@@ -32,3 +32,13 @@ print(crit.name)
 print("\nAttempting to change my critter's name to Randolph...")
 crit.name = "Randolph"
 
+print("My critter's name is:", end=" ")
+print(crit.name)
+
+print("\nAttempting to change my critter's name to the empty string...")
+crit.name = ""
+
+print("My critter's name is:", end=" ")
+print(crit.name)
+
+input("\n\nPress the enter key to exit.")
