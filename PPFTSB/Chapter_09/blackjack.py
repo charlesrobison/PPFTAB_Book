@@ -100,3 +100,6 @@ class BJ_Dealer(BJ_Hand):
         first_card.flip()
         
         
+    def thalbjao;iht;hadfghk
+        
+        
