@@ -99,7 +99,36 @@ class BJ_Dealer(BJ_Hand):
         first_card = self.cards[0]
         first_card.flip()
         
+class BJ_Game(object):
+    """ A Blackjack Game. """
+    def __init__(self, names):
+        self.players = []
+        for name in names:
+            player = BJ_Player(name)
+            self.players.append(player)
+            
+        self.dealer = BJ_Dealer("Dealer")
         
-    def thalbjao;iht;hadfghk
+        self.deck = BJ_Deck()
+        self.deck.populate()
+        self.deck.shuffle()
         
+    def get_still_playing(self):
+        remaining = []
+        for player in self.players:
+            if not player.is_busted():
+                remaining.append(player)
+        return remaining
+    
+    # List of players still playing (not busted) this round
+    still_playing = property(get_still_playing)
+    
+    def __additional_cards(self, player):
+        while not player.is_busted() and player.is_hitting():
+            self.deck.deal([player])
+            print player
+            if player.is_busted():
+                player.bust()
+                
+                
         
