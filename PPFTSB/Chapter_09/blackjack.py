@@ -158,7 +158,7 @@ class BJ_Game(object):
             else:
                 # Compare each player still playing to dealer
                 for player in self.still_playing:
-                    if player.total > self.still_playing:
+                    if player.total > self.dealer.total:
                         player.win()
                     elif player.total < self.dealer.total:
                         player.lose()
