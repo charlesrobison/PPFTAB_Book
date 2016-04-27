@@ -114,15 +114,12 @@ class BJ_Game(object):
         self.deck.shuffle()
         
     @property
-    def get_still_playing(self):
+    def still_playing(self):
         sp = []
         for player in self.players:
             if not player.is_busted():
                 sp.append(player)
-        return remaining
-    
-    # List of players still playing (not busted) this round
-    still_playing = property(get_still_playing)
+        return sp
     
     def __additional_cards(self, player):
         while not player.is_busted() and player.is_hitting():
@@ -161,7 +158,7 @@ class BJ_Game(object):
             else:
                 # Compare each player still playing to dealer
                 for player in self.still_playing:
-                    if player.total > still_playing:
+                    if player.total > self.still_playing:
                         player.win()
                     elif player.total < self.dealer.total:
                         player.lose()

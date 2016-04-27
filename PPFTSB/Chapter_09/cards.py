@@ -15,7 +15,7 @@ class Card(object):
     def __init__(self, rank, suit, face_up = True):
         self.rank = rank
         self.suit = suit
-        self.face_up = face_up
+        self.is_face_up = face_up
         
     def __str__(self):
         if self.is_face_up:
