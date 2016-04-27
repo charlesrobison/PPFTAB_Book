@@ -113,11 +113,12 @@ class BJ_Game(object):
         self.deck.populate()
         self.deck.shuffle()
         
+    @property
     def get_still_playing(self):
-        remaining = []
+        sp = []
         for player in self.players:
             if not player.is_busted():
-                remaining.append(player)
+                sp.append(player)
         return remaining
     
     # List of players still playing (not busted) this round
@@ -126,9 +127,67 @@ class BJ_Game(object):
     def __additional_cards(self, player):
         while not player.is_busted() and player.is_hitting():
             self.deck.deal([player])
-            print player
+            print(player)
             if player.is_busted():
                 player.bust()
                 
-                
+    def play(self):
+        # Deal initial 2 cards to everyone.
+        self.deck.deal(self.players + [self.dealer], per_hand = 2)
+        self.dealer.flip_first_card()   # Hide dealer's first card.
+        for player in self.players:
+            print(player)
+        print(self.dealer)
         
+        # Deal additional cards to players.
+        for player in self.players:
+            self.__additional_cards(player)
+            
+        self.dealer.flip_first_card()   # Reveal dealer's first.
+        
+        if not self.still_playing:
+            # Since all players have busted, just show the dealer's hand.
+            print(self.dealer)
+        else:
+            # Deal additional cards to dealer.
+            print(self.dealer)
+            self.__additional_cards(self.dealer)
+            
+            if self.dealer.is_busted():
+                # Everyone still playing wins.
+                for player in self.still_playing:
+                    player.win()
+                    
+            else:
+                # Compare each player still playing to dealer
+                for player in self.still_playing:
+                    if player.total > still_playing:
+                        player.win()
+                    elif player.total < self.dealer.total:
+                        player.lose()
+                    else:
+                        player.push()
+        # Remove everyone's cards.
+        for player in self.players:
+            player.clear()
+        self.dealer.clear()
+        
+def main():
+    print("\t\tWelcome to BlackJack!\n")
+    
+    names = []
+    number = games.ask_number("How many players? (1 - 7): ", low = 1, high = 8)
+    for i in range(number):
+        name = input("Enter player name: ")
+        names.append(name)
+    print()
+    
+    game = BJ_Game(names)
+    
+    again = None
+    while again != "n":
+        game.play()
+        again = games.ask_yes_no("\nDo you want to play again?: ")
+        
+main()
+input("\n\nPress the enter key to exit.")
